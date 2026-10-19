@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planageo × Títulos ANM</title>
+  <link href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css" rel="stylesheet">
+  <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Planageo × Títulos ANM</h1>
+      <p>Encontre títulos minerários e veja os projetos Planageo que os intersectam.</p>
+    </div>
+    <span class="source-note">Dados públicos: SGB e ANM</span>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>Buscar título minerário</h2>
+        <label for="searchType">Buscar por</label>
+        <select id="searchType">
+          <option value="processo">Número do processo</option>
+          <option value="titular">Titular</option>
+          <option value="substancia">Substância mineral</option>
+        </select>
+        <label for="searchInput">Termo de busca</label>
+        <div class="search-row">
+          <input id="searchInput" type="search" placeholder="Ex.: 2275/1935, VALE, FERRO" autocomplete="off">
+          <button id="searchButton">Buscar</button>
+        </div>
+        <p class="hint">Titular e substância usam busca parcial. Ex.: “VALE” encontra nomes que contenham esse termo.</p>
+        <div id="searchStatus" class="status" role="status">Carregando projetos Planageo…</div>
+        <div id="resultsSummary" class="results-summary"></div>
+        <div id="results" class="results"></div>
+      </section>
+
+      <section class="panel project-panel">
+        <h2>Projetos Planageo</h2>
+        <p id="projectSummary" class="hint">Carregando a camada oficial do SGB…</p>
+        <div id="projectDetails" class="details">
+          <p class="muted">Selecione um título na lista ou clique em um polígono do mapa.</p>
+        </div>
+      </section>
+      <footer>
+        <p>Protótipo experimental. A interseção espacial indica contato/interseção geométrica, não necessariamente área de sobreposição economicamente relevante.</p>
+      </footer>
+    </aside>
+
+    <section class="map-wrap" aria-label="Mapa interativo">
+      <div id="map"></div>
+      <div class="map-legend">
+        <span><i class="swatch planageo"></i> Projetos Planageo</span>
+        <span><i class="swatch selected"></i> Projeto intersectado</span>
+        <span><i class="swatch title"></i> Título ANM selecionado</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

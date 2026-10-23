@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Planageo × Títulos ANM</title>
+  <title>Plangeo × Títulos ANM</title>
   <link href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css" rel="stylesheet">
   <link href="./style.css" rel="stylesheet">
 </head>
 <body>
   <header class="topbar">
     <div>
-      <h1>Planageo × Títulos ANM</h1>
-      <p>Encontre títulos minerários e veja os projetos Planageo que os intersectam.</p>
-      <p>Em seguida acesso o site do <a href="https://formularios.sgb.gov.br/index.php/231693" target="_blank" rel="noopener noreferrer">PLANAGEO</a> e vote nos seus projetos de interesse para que sejam priorizados pelo Serviço Geológico do Brasil.</p>
+      <h1>Plangeo × Títulos ANM</h1>
+      <p>Encontre títulos minerários e veja os projetos Plangeo e as séries do Banco de Dados Aero que os intersectam.</p>
+      <p>Em seguida acesse o site do <a href="https://formularios.sgb.gov.br/index.php/231693" target="_blank" rel="noopener noreferrer">PLANGEO</a> e vote nos seus projetos de interesse para que sejam priorizados pelo Serviço Geológico do Brasil.</p>
     </div>
     <span class="source-note">Dados públicos: SGB e ANM</span>
   </header>
@@ -33,13 +33,13 @@
           <button id="searchButton">Buscar</button>
         </div>
         <p class="hint">Titular e substância usam busca parcial. Ex.: “VALE” encontra nomes que contenham esse termo.</p>
-        <div id="searchStatus" class="status" role="status">Carregando projetos Planageo…</div>
+        <div id="searchStatus" class="status" role="status">Carregando projetos Plangeo…</div>
         <div id="resultsSummary" class="results-summary"></div>
         <div id="results" class="results"></div>
       </section>
 
       <section class="panel project-panel">
-        <h2>Projetos Planageo</h2>
+        <h2>Projetos e séries</h2>
         <p id="projectSummary" class="hint">Carregando a camada oficial do SGB…</p>
         <div id="projectDetails" class="details">
           <p class="muted">Selecione um título na lista ou clique em um polígono do mapa.</p>
@@ -55,14 +55,106 @@
     <section class="map-wrap" aria-label="Mapa interativo">
       <div id="map"></div>
       <div class="map-legend">
-        <span><i class="swatch planageo"></i> Projetos Planageo</span>
-        <span><i class="swatch selected"></i> Projeto intersectado</span>
+        <span><i class="swatch plangeo"></i> Projetos Plangeo</span>
+        <span><i class="swatch serie1000"></i> Série 1000</span>
+        <span><i class="swatch serie2000"></i> Série 2000</span>
+        <span><i class="swatch serie3000"></i> Série 3000</span>
+        <span><i class="swatch serie4000"></i> Série 4000</span>
+        <span><i class="swatch selected"></i> Intersectado pelo título</span>
         <span><i class="swatch title"></i> Título ANM selecionado</span>
+        <span><i class="swatch holder"></i> Outros títulos do titular</span>
       </div>
     </section>
+
+    <aside class="layers-panel" aria-label="Camadas visíveis">
+      <section class="panel">
+        <h2>Camadas</h2>
+
+        <div class="layer-group" data-group="plangeo">
+          <label class="group-title">
+            <input type="checkbox" id="groupPlangeo" checked>
+            <span>Plangeo 2027-2036</span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="em" checked>
+            <i class="swatch" style="--c:#2563eb"></i>
+            <span class="layer-name">Eletromagnético Domínio do Tempo; Magnetometria; Gravimetria Strapdown</span>
+            <span class="count" data-count="em"></span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="gama" checked>
+            <i class="swatch" style="--c:#0d9488"></i>
+            <span class="layer-name">Gamaespectrometria; Magnetometria; Gravimetria Strapdown</span>
+            <span class="count" data-count="gama"></span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="grad" checked>
+            <i class="swatch" style="--c:#7c3aed"></i>
+            <span class="layer-name">Gravimetria Gradiométrica; Magnetometria; Gravimetria Strapdown</span>
+            <span class="count" data-count="grad"></span>
+          </label>
+          <label class="layer-item" id="otherLayerRow" hidden>
+            <input type="checkbox" data-layer="other" checked>
+            <i class="swatch" style="--c:#64748b"></i>
+            <span class="layer-name">Outros métodos</span>
+            <span class="count" data-count="other"></span>
+          </label>
+        </div>
+
+        <div class="layer-group" data-group="aero">
+          <label class="group-title">
+            <input type="checkbox" id="groupAero" checked>
+            <span>Banco de Dados Aero</span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="serie1000" checked>
+            <i class="swatch" style="--c:#65a30d"></i>
+            <span class="layer-name">Série 1000</span>
+            <span class="count" data-count="serie1000"></span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="serie2000" checked>
+            <i class="swatch" style="--c:#b45309"></i>
+            <span class="layer-name">Série 2000</span>
+            <span class="count" data-count="serie2000"></span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="serie3000" checked>
+            <i class="swatch" style="--c:#db2777"></i>
+            <span class="layer-name">Série 3000</span>
+            <span class="count" data-count="serie3000"></span>
+          </label>
+          <label class="layer-item">
+            <input type="checkbox" data-layer="serie4000" checked>
+            <i class="swatch" style="--c:#374151"></i>
+            <span class="layer-name">Série 4000</span>
+            <span class="count" data-count="serie4000"></span>
+          </label>
+          <label class="layer-item" id="serieOutrasRow" hidden>
+            <input type="checkbox" data-layer="serieOutras" checked>
+            <i class="swatch" style="--c:#0e7490"></i>
+            <span class="layer-name">Outras séries</span>
+            <span class="count" data-count="serieOutras"></span>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Titularidade</h2>
+        <button id="holderButton" class="wide" type="button" disabled>Mostrar todos os títulos com mesma titularidade</button>
+        <p id="holderHint" class="hint">Selecione um título para ativar.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Relatório</h2>
+        <button id="reportButton" class="wide" type="button" disabled>Emitir relatório</button>
+        <p id="reportHint" class="hint">Selecione um título para ativar.</p>
+      </section>
+    </aside>
   </main>
 
   <script src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/@turf/turf@7.2.0/turf.min.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
